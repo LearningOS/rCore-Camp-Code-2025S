@@ -44,6 +44,7 @@
 <a href="#44" id="44">44</a>
 <a href="#45" id="45">45</a>
 <a href="#46" id="46">46</a>
+<a href="#47" id="47">47</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Implementation of syscalls
 //!
 //! The single entry point to all system calls, [`syscall()`], is called
@@ -68,14 +69,15 @@
 </span><span class="kw">const </span>SYSCALL_MUNMAP: usize = <span class="number">215</span>;
 <span class="doccomment">/// mmap syscall
 </span><span class="kw">const </span>SYSCALL_MMAP: usize = <span class="number">222</span>;
-<span class="doccomment">/// taskinfo syscall
-</span><span class="kw">const </span>SYSCALL_TASK_INFO: usize = <span class="number">410</span>;
+<span class="doccomment">/// trace syscall
+</span><span class="kw">const </span>SYSCALL_TRACE: usize = <span class="number">410</span>;
 
 <span class="kw">mod </span>fs;
 <span class="kw">mod </span>process;
 
 <span class="kw">use </span>fs::<span class="kw-2">*</span>;
 <span class="kw">use </span>process::<span class="kw-2">*</span>;
+
 <span class="doccomment">/// handle syscall exception with `syscall_id` and other arguments
 </span><span class="kw">pub fn </span>syscall(syscall_id: usize, args: [usize; <span class="number">3</span>]) -&gt; isize {
     <span class="kw">match </span>syscall_id {
@@ -83,7 +85,7 @@
         SYSCALL_EXIT =&gt; sys_exit(args[<span class="number">0</span>] <span class="kw">as </span>i32),
         SYSCALL_YIELD =&gt; sys_yield(),
         SYSCALL_GET_TIME =&gt; sys_get_time(args[<span class="number">0</span>] <span class="kw">as </span><span class="kw-2">*mut </span>TimeVal, args[<span class="number">1</span>]),
-        SYSCALL_TASK_INFO =&gt; sys_task_info(args[<span class="number">0</span>] <span class="kw">as </span><span class="kw-2">*mut </span>TaskInfo),
+        SYSCALL_TRACE =&gt; sys_trace(args[<span class="number">0</span>], args[<span class="number">1</span>], args[<span class="number">2</span>]),
         SYSCALL_MMAP =&gt; sys_mmap(args[<span class="number">0</span>], args[<span class="number">1</span>], args[<span class="number">2</span>]),
         SYSCALL_MUNMAP =&gt; sys_munmap(args[<span class="number">0</span>], args[<span class="number">1</span>]),
         SYSCALL_SBRK =&gt; sys_sbrk(args[<span class="number">0</span>] <span class="kw">as </span>i32),

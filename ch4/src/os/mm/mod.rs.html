@@ -46,7 +46,7 @@
 <span class="kw">pub use </span>memory_set::remap_test;
 <span class="kw">pub use </span>memory_set::{kernel_stack_position, MapPermission, MemorySet, KERNEL_SPACE};
 <span class="kw">pub use </span>page_table::{translated_byte_buffer, PageTableEntry};
-<span class="kw">use </span>page_table::{PTEFlags, PageTable};
+<span class="kw">pub use </span>page_table::{PTEFlags, PageTable};
 
 <span class="doccomment">/// initiate heap allocator, frame allocator and kernel space
 </span><span class="kw">pub fn </span>init() {
