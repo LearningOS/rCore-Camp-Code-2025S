@@ -8,7 +8,7 @@ env:
 
 jobs:
   build-doc:
-    if: github.repository == 'LearningOS/rCore-Camp-Code-2024A'
+    if: github.repository == 'LearningOS/rCore-Camp-Code-2025S'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -49,7 +49,7 @@ jobs:
           cat output.txt | grep -a "Test passed" | grep -oP "\d{1,}/\d{1,}" | xargs -i echo "points={}"
           cat output.txt | grep -a "Test passed" | grep -oP "\d{1,}/\d{1,}" | xargs -i echo "points={}" >> $GITHUB_OUTPUT
   deploy:
-    if: github.repository != 'LearningOS/rCore-Camp-Code-2024A'
+    if: github.repository != 'LearningOS/rCore-Camp-Code-2025S'
     name: Deploy to pages
     needs: basic-test
     runs-on: ubuntu-latest
@@ -75,8 +75,8 @@ jobs:
       - name: check score
         env:
           course_id: ${{ secrets.RCORE_2025_SPRING_COURSE_ID }}
-          post_api: ${{ secrets.RUSTLINGS_2025_SPRING_POST_API }}
-          token: ${{ secrets.RUSTLINGS_2025_SPRING_TOKEN }}
+          post_api: ${{ secrets.RCORE_2025_SPRING_POST_API }}
+          token: ${{ secrets.RCORE_2025_SPRING_TOKEN }}
         run: |
           score=$(( $(grep -o 'ch' classroom/latest.json | wc -l) * 100))
           cat classroom/latest.json
